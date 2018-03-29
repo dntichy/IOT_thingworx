@@ -17,14 +17,18 @@ public class SteamSensorClient extends ConnectedThingClient {
 
     // Test example
     public static void main(String[] args) throws Exception {
-        if (args.length < 3) {
-            System.out.println("Required arguments not found!");
-            System.out.println("URI AppKey ScanRate <StartSensor> <Number Of Sensors>");
-            System.out.println("Example:");
-            System.out.println("ws://localhost:80/Thingworx/WS xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx 1000 1 10");
-            return;
-        }
+        args = new String[4];
+//        if (args.length < 3) {
+//            System.out.println("Required arguments not found!");
+//            System.out.println("URI AppKey ScanRate <StartSensor> <Number Of Sensors>");
+//            System.out.println("Example:");
+//            System.out.println("ws://localhost:80/Thingworx/WS xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx 1000 1 10");
+//            return;
+//        }
 
+        args[0] = "wss://academic-educatorsextension.portal.ptc.io:443/Thingworx/WS";
+        args[1] = "51da8847-9985-4f66-8b4c-a25a610572b0";
+        args[2] = "1000";
         // Set the required configuration information
         ClientConfigurator config = new ClientConfigurator();
         // The uri for connecting to Thingworx
@@ -64,7 +68,7 @@ public class SteamSensorClient extends ConnectedThingClient {
 
         for (int sensor = 0; sensor < nSensors; sensor++) {
             int sensorID = startSensor + sensor;
-            final SteamThing steamSensorThing = new SteamThing("SteamSensor" + sensorID, "Steam Sensor #" + sensorID, "SN000" + sensorID, client);
+            final SteamThing steamSensorThing = new SteamThing("ThingTemperature_dntichy", "Steam Sensor #" + sensorID, "SN000", client);
             client.bindThing(steamSensorThing);
 
             steamSensorThing.addPropertyChangeListener(new VirtualThingPropertyChangeListener() {

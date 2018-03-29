@@ -19,7 +19,7 @@ public class SimpleClient extends ConnectedThingClient {
 
     private static final Logger LOG = LoggerFactory.getLogger(SimpleClient.class);
 
-    private static String ThingName = "ExampleThing_1";
+    private static String ThingName = "ThingTemperature_dntichy";
 
     public SimpleClient(ClientConfigurator config) throws Exception {
         super(config);
@@ -100,52 +100,52 @@ public class SimpleClient extends ConnectedThingClient {
                 ///////////////////////////////////////////////////////////////
 
                 // A ValueCollection is used to specify a service's parameters
-                ValueCollection params = new ValueCollection();
-
-                params.put("path", new StringPrimitive("/simple.txt"));
-                params.put("data", new StringPrimitive("Here is the contents of the file."));
-                params.put("overwrite", new BooleanPrimitive(true));
+//                ValueCollection params = new ValueCollection();
+//
+//                params.put("path", new StringPrimitive("/simple.txt"));
+//                params.put("data", new StringPrimitive("Here is the contents of the file."));
+//                params.put("overwrite", new BooleanPrimitive(true));
 
                 // Use the SystemRepository Thing to create a text file on the Platform.
                 // This service's result type is NOTHING, so we can ignore the response.
-                client.invokeService(ThingworxEntityTypes.Things, "SystemRepository",
-                        "CreateTextFile", params, 5000);
+//                client.invokeService(ThingworxEntityTypes.Things, "SystemRepository",
+//                        "CreateTextFile", params, 5000);
 
                 // If a service does have a result, it is returned within an InfoTable.
-                params.clear(); // Clear the params used in the previous service invocation.
-                params.put("path", new StringPrimitive("/simple.txt"));
+//                params.clear(); // Clear the params used in the previous service invocation.
+//                params.put("path", new StringPrimitive("/simple.txt"));
 
                 // This service queries the SystemRepository for information about the file
                 // we just created.
-                result = client.invokeService(ThingworxEntityTypes.Things, "SystemRepository",
-                        "GetFileInfo", params, 5000);
+//                result = client.invokeService(ThingworxEntityTypes.Things, "SystemRepository",
+//                        "GetFileInfo", params, 5000);
 
                 // The rows of an InfoTable are ValueCollections.
-                ValueCollection row = result.getFirstRow();
-
-                LOG.info("The file info is: name: {}", row.getStringValue("name"));
-                LOG.info("                  path: {}", row.getStringValue("path"));
-                LOG.info("                  type: {}", row.getStringValue("fileType"));
-                LOG.info("                  date: {}",
-                        row.getPrimitive("lastModifiedDate").getStringValue());
-                LOG.info("                  size: {}", row.getValue("size"));
+//                ValueCollection row = result.getFirstRow();
+//
+//                LOG.info("The file info is: name: {}", row.getStringValue("name"));
+//                LOG.info("                  path: {}", row.getStringValue("path"));
+//                LOG.info("                  type: {}", row.getStringValue("fileType"));
+//                LOG.info("                  date: {}",
+//                        row.getPrimitive("lastModifiedDate").getStringValue());
+//                LOG.info("                  size: {}", row.getValue("size"));
 
                 //
                 // Firing an event
                 ///////////////////////////////////////////////////////////////
 
                 // A ValueCollection is used to specify a event's payload
-                ValueCollection payload = new ValueCollection();
-
-                payload.put("name", new StringPrimitive("FileName"));
-                payload.put("path", new StringPrimitive("/file.txt"));
-                payload.put("fileType", new StringPrimitive("F"));
-                payload.put("lastModifiedDate", new DatetimePrimitive());
-                payload.put("size", new NumberPrimitive(256));
+//                ValueCollection payload = new ValueCollection();
+//
+//                payload.put("name", new StringPrimitive("FileName"));
+//                payload.put("path", new StringPrimitive("/file.txt"));
+//                payload.put("fileType", new StringPrimitive("F"));
+//                payload.put("lastModifiedDate", new DatetimePrimitive());
+//                payload.put("size", new NumberPrimitive(256));
 
                 // This will trigger the 'FileEvent' of a RemoteThing on the Platform.
-                client.fireEvent(ThingworxEntityTypes.Things, ThingName, "FileEvent", payload,
-                        5000);
+//                client.fireEvent(ThingworxEntityTypes.Things, ThingName, "FileEvent", payload,
+//                        5000);
 
                 //
                 // Create a VirtualThing and bind it to the client
@@ -153,12 +153,14 @@ public class SimpleClient extends ConnectedThingClient {
 
                 // Create a new VirtualThing. The name parameter should correspond with the
                 // name of a RemoteThing on the Platform.
-                SimpleThing thing = new SimpleThing("Simple1", "A basic virtual thing", client);
+                SimpleThing thing = new SimpleThing("ThingTemperature_dntichy", "A basic virtual thing", client);
 
                 // Bind the VirtualThing to the client. This will tell the Platform that
                 // the RemoteThing 'Simple1' is now connected and that it is ready to
                 // receive requests.
                 client.bindThing(thing);
+                thing.processScanRequest();
+
 
             } else {
                 // Log this as a warning. In production the application could continue

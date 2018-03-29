@@ -26,18 +26,21 @@ import com.thingworx.types.primitives.StringPrimitive;
 @SuppressWarnings("serial")
 @ThingworxPropertyDefinitions(properties = {
         @ThingworxPropertyDefinition(name = "Temperature", description = "Current Temperature",
-                baseType = "NUMBER", category = "Status", aspects = { "isReadOnly:true" }),
-        @ThingworxPropertyDefinition(name = "Pressure", description = "Current Pressure",
-                baseType = "NUMBER", category = "Status", aspects = { "isReadOnly:true" }),
-        @ThingworxPropertyDefinition(name = "FaultStatus", description = "Fault status",
-                baseType = "BOOLEAN", category = "Faults", aspects = { "isReadOnly:true" }),
-        @ThingworxPropertyDefinition(name = "InletValve", description = "Inlet valve state",
-                baseType = "BOOLEAN", category = "Status", aspects = { "isReadOnly:true" }),
-        @ThingworxPropertyDefinition(name = "TemperatureLimit",
-                description = "Temperature fault limit", baseType = "NUMBER", category = "Faults",
-                aspects = { "isReadOnly:false" }),
-        @ThingworxPropertyDefinition(name = "TotalFlow", description = "Total flow",
-                baseType = "NUMBER", category = "Aggregates", aspects = { "isReadOnly:true" }), })
+                baseType = "NUMBER")
+//        ,
+//        @ThingworxPropertyDefinition(name = "Pressure", description = "Current Pressure",
+//                baseType = "NUMBER", category = "Status", aspects = { "isReadOnly:true" }),
+//        @ThingworxPropertyDefinition(name = "FaultStatus", description = "Fault status",
+//                baseType = "BOOLEAN", category = "Faults", aspects = { "isReadOnly:true" }),
+//        @ThingworxPropertyDefinition(name = "InletValve", description = "Inlet valve state",
+//                baseType = "BOOLEAN", category = "Status", aspects = { "isReadOnly:true" }),
+//        @ThingworxPropertyDefinition(name = "TemperatureLimit",
+//                description = "Temperature fault limit", baseType = "NUMBER", category = "Faults",
+//                aspects = { "isReadOnly:false" }),
+//        @ThingworxPropertyDefinition(name = "TotalFlow", description = "Total flow",
+//                baseType = "NUMBER", category = "Aggregates", aspects = { "isReadOnly:true" }),
+})
+
 
 // Event Definitions
 @ThingworxEventDefinitions(events = { @ThingworxEventDefinition(name = "SteamSensorFault",
@@ -90,97 +93,97 @@ public class SteamThing extends VirtualThing implements Runnable {
     }
 
     private void init() throws Exception {
-        initializeFromAnnotations();
+//        initializeFromAnnotations();
 
-        FieldDefinitionCollection fields = new FieldDefinitionCollection();
-        fields.addFieldDefinition(new FieldDefinition(SENSOR_NAME_FIELD, BaseTypes.STRING));
-        fields.addFieldDefinition(new FieldDefinition(ACTIV_TIME_FIELD, BaseTypes.DATETIME));
-        fields.addFieldDefinition(new FieldDefinition(TEMPERATURE_FIELD, BaseTypes.NUMBER));
-        fields.addFieldDefinition(new FieldDefinition(PRESSURE_FIELD, BaseTypes.NUMBER));
-        fields.addFieldDefinition(new FieldDefinition(FAULT_STATUS_FIELD, BaseTypes.BOOLEAN));
-        fields.addFieldDefinition(new FieldDefinition(INLET_VALVE_FIELD, BaseTypes.BOOLEAN));
-        fields.addFieldDefinition(new FieldDefinition(TEMPERATURE_LIMIT_FIELD, BaseTypes.NUMBER));
-        fields.addFieldDefinition(new FieldDefinition(TOTAL_FLOW_FIELD, BaseTypes.INTEGER));
-        defineDataShapeDefinition("SteamSensorReadings", fields);
+//        FieldDefinitionCollection fields = new FieldDefinitionCollection();
+//        fields.addFieldDefinition(new FieldDefinition(SENSOR_NAME_FIELD, BaseTypes.STRING));
+//        fields.addFieldDefinition(new FieldDefinition(ACTIV_TIME_FIELD, BaseTypes.DATETIME));
+//        fields.addFieldDefinition(new FieldDefinition(TEMPERATURE_FIELD, BaseTypes.NUMBER));
+//        fields.addFieldDefinition(new FieldDefinition(PRESSURE_FIELD, BaseTypes.NUMBER));
+//        fields.addFieldDefinition(new FieldDefinition(FAULT_STATUS_FIELD, BaseTypes.BOOLEAN));
+//        fields.addFieldDefinition(new FieldDefinition(INLET_VALVE_FIELD, BaseTypes.BOOLEAN));
+//        fields.addFieldDefinition(new FieldDefinition(TEMPERATURE_LIMIT_FIELD, BaseTypes.NUMBER));
+//        fields.addFieldDefinition(new FieldDefinition(TOTAL_FLOW_FIELD, BaseTypes.INTEGER));
+//        defineDataShapeDefinition("SteamSensorReadings", fields);
     }
 
-    @ThingworxServiceDefinition(name = "GetSteamSensorReadings",
-            description = "Get SteamSensor Readings")
-    @ThingworxServiceResult(name = CommonPropertyNames.PROP_RESULT, description = "Result",
-            baseType = "INFOTABLE", aspects = { "dataShape:SteamSensorReadings" })
-    public InfoTable GetSteamSensorReadings() {
-        InfoTable table = new InfoTable(getDataShapeDefinition("SteamSensorReadings"));
-
-        ValueCollection entry = new ValueCollection();
-
-        DateTime now = DateTime.now();
-
-        try {
-            // entry 1
-            entry.clear();
-            entry.SetStringValue(SENSOR_NAME_FIELD, "Sensor Alpha");
-            entry.SetDateTimeValue(ACTIV_TIME_FIELD, now.plusDays(1));
-            entry.SetNumberValue(TEMPERATURE_FIELD, 50);
-            entry.SetNumberValue(PRESSURE_FIELD, 15);
-            entry.SetBooleanValue(FAULT_STATUS_FIELD, false);
-            entry.SetBooleanValue(INLET_VALVE_FIELD, true);
-            entry.SetNumberValue(TEMPERATURE_LIMIT_FIELD, 150);
-            entry.SetNumberValue(TOTAL_FLOW_FIELD, 87);
-            table.addRow(entry.clone());
-
-            // entry 2
-            entry.clear();
-            entry.SetStringValue(SENSOR_NAME_FIELD, "Sensor Beta");
-            entry.SetDateTimeValue(ACTIV_TIME_FIELD, now.plusDays(2));
-            entry.SetNumberValue(TEMPERATURE_FIELD, 60);
-            entry.SetNumberValue(PRESSURE_FIELD, 25);
-            entry.SetBooleanValue(FAULT_STATUS_FIELD, true);
-            entry.SetBooleanValue(INLET_VALVE_FIELD, true);
-            entry.SetNumberValue(TEMPERATURE_LIMIT_FIELD, 150);
-            entry.SetNumberValue(TOTAL_FLOW_FIELD, 77);
-            table.addRow(entry.clone());
-
-            // entry 3
-            entry.clear();
-            entry.SetStringValue(SENSOR_NAME_FIELD, "Sensor Gamma");
-            entry.SetDateTimeValue(ACTIV_TIME_FIELD, now.plusDays(3));
-            entry.SetNumberValue(TEMPERATURE_FIELD, 70);
-            entry.SetNumberValue(PRESSURE_FIELD, 30);
-            entry.SetBooleanValue(FAULT_STATUS_FIELD, true);
-            entry.SetBooleanValue(INLET_VALVE_FIELD, true);
-            entry.SetNumberValue(TEMPERATURE_LIMIT_FIELD, 150);
-            entry.SetNumberValue(TOTAL_FLOW_FIELD, 67);
-            table.addRow(entry.clone());
-
-            // entry 4
-            entry.clear();
-            entry.SetStringValue(SENSOR_NAME_FIELD, "Sensor Delta");
-            entry.SetDateTimeValue(ACTIV_TIME_FIELD, now.plusDays(4));
-            entry.SetNumberValue(TEMPERATURE_FIELD, 80);
-            entry.SetNumberValue(PRESSURE_FIELD, 35);
-            entry.SetBooleanValue(FAULT_STATUS_FIELD, false);
-            entry.SetBooleanValue(INLET_VALVE_FIELD, true);
-            entry.SetNumberValue(TEMPERATURE_LIMIT_FIELD, 150);
-            entry.SetNumberValue(TOTAL_FLOW_FIELD, 57);
-            table.addRow(entry.clone());
-
-            // entry 5
-            entry.clear();
-            entry.SetStringValue(SENSOR_NAME_FIELD, "Sensor Epsilon");
-            entry.SetDateTimeValue(ACTIV_TIME_FIELD, now.plusDays(5));
-            entry.SetNumberValue(TEMPERATURE_FIELD, 90);
-            entry.SetNumberValue(PRESSURE_FIELD, 40);
-            entry.SetBooleanValue(FAULT_STATUS_FIELD, true);
-            entry.SetBooleanValue(INLET_VALVE_FIELD, false);
-            entry.SetNumberValue(TEMPERATURE_LIMIT_FIELD, 150);
-            entry.SetNumberValue(TOTAL_FLOW_FIELD, 47);
-            table.addRow(entry.clone());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return table;
-    }
+//    @ThingworxServiceDefinition(name = "GetSteamSensorReadings",
+//            description = "Get SteamSensor Readings")
+//    @ThingworxServiceResult(name = CommonPropertyNames.PROP_RESULT, description = "Result",
+//            baseType = "INFOTABLE", aspects = { "dataShape:SteamSensorReadings" })
+//    public InfoTable GetSteamSensorReadings() {
+//        InfoTable table = new InfoTable(getDataShapeDefinition("SteamSensorReadings"));
+//
+//        ValueCollection entry = new ValueCollection();
+//
+//        DateTime now = DateTime.now();
+//
+//        try {
+//            // entry 1
+//            entry.clear();
+//            entry.SetStringValue(SENSOR_NAME_FIELD, "Sensor Alpha");
+//            entry.SetDateTimeValue(ACTIV_TIME_FIELD, now.plusDays(1));
+//            entry.SetNumberValue(TEMPERATURE_FIELD, 50);
+//            entry.SetNumberValue(PRESSURE_FIELD, 15);
+//            entry.SetBooleanValue(FAULT_STATUS_FIELD, false);
+//            entry.SetBooleanValue(INLET_VALVE_FIELD, true);
+//            entry.SetNumberValue(TEMPERATURE_LIMIT_FIELD, 150);
+//            entry.SetNumberValue(TOTAL_FLOW_FIELD, 87);
+//            table.addRow(entry.clone());
+//
+//            // entry 2
+//            entry.clear();
+//            entry.SetStringValue(SENSOR_NAME_FIELD, "Sensor Beta");
+//            entry.SetDateTimeValue(ACTIV_TIME_FIELD, now.plusDays(2));
+//            entry.SetNumberValue(TEMPERATURE_FIELD, 60);
+//            entry.SetNumberValue(PRESSURE_FIELD, 25);
+//            entry.SetBooleanValue(FAULT_STATUS_FIELD, true);
+//            entry.SetBooleanValue(INLET_VALVE_FIELD, true);
+//            entry.SetNumberValue(TEMPERATURE_LIMIT_FIELD, 150);
+//            entry.SetNumberValue(TOTAL_FLOW_FIELD, 77);
+//            table.addRow(entry.clone());
+//
+//            // entry 3
+//            entry.clear();
+//            entry.SetStringValue(SENSOR_NAME_FIELD, "Sensor Gamma");
+//            entry.SetDateTimeValue(ACTIV_TIME_FIELD, now.plusDays(3));
+//            entry.SetNumberValue(TEMPERATURE_FIELD, 70);
+//            entry.SetNumberValue(PRESSURE_FIELD, 30);
+//            entry.SetBooleanValue(FAULT_STATUS_FIELD, true);
+//            entry.SetBooleanValue(INLET_VALVE_FIELD, true);
+//            entry.SetNumberValue(TEMPERATURE_LIMIT_FIELD, 150);
+//            entry.SetNumberValue(TOTAL_FLOW_FIELD, 67);
+//            table.addRow(entry.clone());
+//
+//            // entry 4
+//            entry.clear();
+//            entry.SetStringValue(SENSOR_NAME_FIELD, "Sensor Delta");
+//            entry.SetDateTimeValue(ACTIV_TIME_FIELD, now.plusDays(4));
+//            entry.SetNumberValue(TEMPERATURE_FIELD, 80);
+//            entry.SetNumberValue(PRESSURE_FIELD, 35);
+//            entry.SetBooleanValue(FAULT_STATUS_FIELD, false);
+//            entry.SetBooleanValue(INLET_VALVE_FIELD, true);
+//            entry.SetNumberValue(TEMPERATURE_LIMIT_FIELD, 150);
+//            entry.SetNumberValue(TOTAL_FLOW_FIELD, 57);
+//            table.addRow(entry.clone());
+//
+//            // entry 5
+//            entry.clear();
+//            entry.SetStringValue(SENSOR_NAME_FIELD, "Sensor Epsilon");
+//            entry.SetDateTimeValue(ACTIV_TIME_FIELD, now.plusDays(5));
+//            entry.SetNumberValue(TEMPERATURE_FIELD, 90);
+//            entry.SetNumberValue(PRESSURE_FIELD, 40);
+//            entry.SetBooleanValue(FAULT_STATUS_FIELD, true);
+//            entry.SetBooleanValue(INLET_VALVE_FIELD, false);
+//            entry.SetNumberValue(TEMPERATURE_LIMIT_FIELD, 150);
+//            entry.SetNumberValue(TOTAL_FLOW_FIELD, 47);
+//            table.addRow(entry.clone());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return table;
+//    }
 
     // The processScanRequest is called by the SteamSensorClient every scan cycle
     @Override
@@ -201,14 +204,14 @@ public class SteamThing extends VirtualThing implements Runnable {
             super.setProperty("Temperature", temperature);
 
             // Get the TemperatureLimmit property value from memory
-            double temperatureLimit =
-                    (Double) getProperty("TemperatureLimit").getValue().getValue();
+//            double temperatureLimit =
+//                    (Double) getProperty("TemperatureLimit").getValue().getValue();
 
             // Set the FaultStatus property value if the TemperatureLimit value is exceeded
             // and it is greater than zero
             boolean faultStatus = false;
 
-            if (temperatureLimit > 0 && temperature > temperatureLimit)
+//            if (temperatureLimit > 0 && temperature > temperatureLimit)
                 faultStatus = true;
 
             // If the sensor has a fault...
@@ -218,53 +221,44 @@ public class SteamThing extends VirtualThing implements Runnable {
                 // This is done because we don't want to send the event every time it enters the
                 // fault state,
                 // only send the fault on the transition from non-faulted to faulted
-                boolean previousFaultStatus =
-                        (Boolean) getProperty("FaultStatus").getValue().getValue();
+//                boolean previousFaultStatus =
+//                        (Boolean) getProperty("FaultStatus").getValue().getValue();
 
                 // If the current value is not faulted, then create and queue the event
-                if (!previousFaultStatus) {
-                    // Set the event information of the defined data shape for the event
-                    ValueCollection eventInfo = new ValueCollection();
-                    eventInfo.put(CommonPropertyNames.PROP_MESSAGE,
-                            new StringPrimitive("Temperature at " + temperature
-                                    + " was above limit of " + temperatureLimit));
-                    // Queue the event
-                    super.queueEvent("SteamSensorFault", DateTime.now(), eventInfo);
-                }
+//                if (!previousFaultStatus) {
+//                    // Set the event information of the defined data shape for the event
+//                    ValueCollection eventInfo = new ValueCollection();
+//                    eventInfo.put(CommonPropertyNames.PROP_MESSAGE,
+//                            new StringPrimitive("Temperature at " + temperature
+//                                    + " was above limit of " + temperatureLimit));
+//                    // Queue the event
+//                    super.queueEvent("SteamSensorFault", DateTime.now(), eventInfo);
+//                }
             }
 
             // Set the fault status property value
-            super.setProperty("FaultStatus", faultStatus);
+//            super.setProperty("FaultStatus", faultStatus);
 
 
         }
 
-        if ((counter % 2) == 0) {
-            // Set the Pressure property value in the range of 18-23
-            double pressure = 18 + 5 * Math.random();
-            // Set the property values
-            super.setProperty("Pressure", pressure);
-        }
+//        if ((counter % 2) == 0) {
+//            // Set the Pressure property value in the range of 18-23
+//            double pressure = 18 + 5 * Math.random();
+//            // Set the property values
+//            super.setProperty("Pressure", pressure);
+//        }
 
-        if ((counter % 3) == 0) {
-            // Add a random double value from 0.0-1.0 to the total flow
-            this._totalFlow += Math.random();
-
-            // Set the InletValve property value to true by default
-            boolean inletValveStatus = true;
-
-            // If the current second value is divisible by 15, set the InletValve property value to
-            // false
-            int seconds = DateTime.now().getSecondOfMinute();
-            if ((seconds % 15) == 0)
-                inletValveStatus = false;
-
-
-            super.setProperty("TotalFlow", _totalFlow);
-            super.setProperty("InletValve", inletValveStatus);
-
-            counter = 0;
-        }
+//        if ((counter % 3) == 0) {
+//            // Add a random double value from 0.0-1.0 to the total flow
+//            this._totalFlow += Math.random();
+//
+//            // Set the InletValve property value to true by default
+//            boolean inletValveStatus = true;
+//
+//
+//            counter = 0;
+//        }
 
         // Update the subscribed properties and events to send any updates to Thingworx
         // Without calling these methods, the property and event updates will not be sent
@@ -273,43 +267,43 @@ public class SteamThing extends VirtualThing implements Runnable {
         super.updateSubscribedEvents(60000);
     }
 
-    @ThingworxServiceDefinition(name = "AddNumbers", description = "Add Two Numbers")
-    @ThingworxServiceResult(name = CommonPropertyNames.PROP_RESULT, description = "Result",
-            baseType = "NUMBER")
-    public Double AddNumbers(
-            @ThingworxServiceParameter(name = "a", description = "Value 1",
-                    baseType = "NUMBER") Double a,
-            @ThingworxServiceParameter(name = "b", description = "Value 2",
-                    baseType = "NUMBER") Double b)
-            throws Exception {
+//    @ThingworxServiceDefinition(name = "AddNumbers", description = "Add Two Numbers")
+//    @ThingworxServiceResult(name = CommonPropertyNames.PROP_RESULT, description = "Result",
+//            baseType = "NUMBER")
+//    public Double AddNumbers(
+//            @ThingworxServiceParameter(name = "a", description = "Value 1",
+//                    baseType = "NUMBER") Double a,
+//            @ThingworxServiceParameter(name = "b", description = "Value 2",
+//                    baseType = "NUMBER") Double b)
+//            throws Exception {
+//
+//        return a + b;
+//    }
 
-        return a + b;
-    }
+//    @ThingworxServiceDefinition(name = "GetBigString", description = "Get big string")
+//    @ThingworxServiceResult(name = CommonPropertyNames.PROP_RESULT, description = "Result",
+//            baseType = "STRING")
+//    public String GetBigString() {
+//        StringBuilder sbValue = new StringBuilder();
+//
+//        for (int i = 0; i < 24000; i++) {
+//            sbValue.append('0');
+//        }
+//
+//        return sbValue.toString();
+//    }
 
-    @ThingworxServiceDefinition(name = "GetBigString", description = "Get big string")
-    @ThingworxServiceResult(name = CommonPropertyNames.PROP_RESULT, description = "Result",
-            baseType = "STRING")
-    public String GetBigString() {
-        StringBuilder sbValue = new StringBuilder();
-
-        for (int i = 0; i < 24000; i++) {
-            sbValue.append('0');
-        }
-
-        return sbValue.toString();
-    }
-
-    @ThingworxServiceDefinition(name = "Shutdown", description = "Shutdown the client")
-    @ThingworxServiceResult(name = CommonPropertyNames.PROP_RESULT, description = "",
-            baseType = "NOTHING")
-    public synchronized void Shutdown() throws Exception {
-        // Should not have to do this, but guard against this method being called more than once.
-        if (this._shutdownThread == null) {
-            // Create a thread for shutting down and start the thread
-            this._shutdownThread = new Thread(this);
-            this._shutdownThread.start();
-        }
-    }
+//    @ThingworxServiceDefinition(name = "Shutdown", description = "Shutdown the client")
+//    @ThingworxServiceResult(name = CommonPropertyNames.PROP_RESULT, description = "",
+//            baseType = "NOTHING")
+//    public synchronized void Shutdown() throws Exception {
+//        // Should not have to do this, but guard against this method being called more than once.
+//        if (this._shutdownThread == null) {
+//            // Create a thread for shutting down and start the thread
+//            this._shutdownThread = new Thread(this);
+//            this._shutdownThread.start();
+//        }
+//    }
 
     @Override
     public void run() {
