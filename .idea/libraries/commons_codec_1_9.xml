@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="commons-codec-1.9">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/commons-codec-1.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/commons-logging-1.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/httpclient-4.5.2.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/httpcore-4.4.4.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/jackson-annotations-2.8.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/jackson-core-2.8.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/jackson-databind-2.8.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/jackson-dataformat-smile-2.8.1.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/jaxen-1.1.6.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/jdom2-2.0.6.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/joda-time-2.9.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/logback-classic-1.0.13.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/logback-core-1.0.13.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/netty-all-4.0.47.Final.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/slf4j-api-1.7.21.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/thingworx-common-development.server.build-b595.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/thingworx-communications-client-development.server.build-b595.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/Downloads/221-Java-SDK-6-0-4-595/lib/thingworx-java-sdk-development.server.build-b595-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>
