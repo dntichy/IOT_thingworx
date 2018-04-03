@@ -1,5 +1,4 @@
 
-package com.thingworx.sdk.steam;
 
 import com.thingworx.communications.client.ClientConfigurator;
 import com.thingworx.communications.client.ConnectedThingClient;
@@ -10,25 +9,18 @@ import com.thingworx.communications.common.SecurityClaims;
 
 // Refer to the "Steam Sensor Example" section of the documentation
 // for a detailed explanation of this example's operation
-public class SteamSensorClient extends ConnectedThingClient {
-    public SteamSensorClient(ClientConfigurator config) throws Exception {
+public class SensorClient extends ConnectedThingClient {
+    public SensorClient(ClientConfigurator config) throws Exception {
         super(config);
     }
 
     // Test example
     public static void main(String[] args) throws Exception {
-        args = new String[4];
-//        if (args.length < 3) {
-//            System.out.println("Required arguments not found!");
-//            System.out.println("URI AppKey ScanRate <StartSensor> <Number Of Sensors>");
-//            System.out.println("Example:");
-//            System.out.println("ws://localhost:80/Thingworx/WS xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx 1000 1 10");
-//            return;
-//        }
-
+        args = new String[3];
         args[0] = "wss://academic-educatorsextension.portal.ptc.io:443/Thingworx/WS";
         args[1] = "51da8847-9985-4f66-8b4c-a25a610572b0";
         args[2] = "1000";
+
         // Set the required configuration information
         ClientConfigurator config = new ClientConfigurator();
         // The uri for connecting to Thingworx
@@ -42,7 +34,7 @@ public class SteamSensorClient extends ConnectedThingClient {
         config.setSecurityClaims(claims);
 
         // Set the name of the client
-        config.setName("SteamSensorGateway");
+        config.setName("SensorGateway");
         // This client is a SDK
         config.setAsSDKType();
 
@@ -55,20 +47,15 @@ public class SteamSensorClient extends ConnectedThingClient {
         // based on this scan rate
         int scanRate = Integer.parseInt(args[2]);
 
-        int startSensor = 0;
+
         int nSensors = 2;
 
-        if (args.length == 5) {
-            startSensor = Integer.parseInt(args[3]);
-            nSensors = Integer.parseInt(args[4]);
-        }
-
         // Create the client passing in the configuration from above
-        SteamSensorClient client = new SteamSensorClient(config);
+        SensorClient client = new SensorClient(config);
 
-        for (int sensor = 0; sensor < nSensors; sensor++) {
-            int sensorID = startSensor + sensor;
-            final SteamThing steamSensorThing = new SteamThing("ThingTemperature_dntichy", "Steam Sensor #" + sensorID, "SN000", client);
+//        for (int sensor = 0; sensor < nSensors; sensor++) {
+
+            final SteamThing steamSensorThing = new SteamThing("ThingTemperature_dntichy", "Senzor id: ...dorob ID ak viac senzorov" , "SN000", client);
             client.bindThing(steamSensorThing);
 
             steamSensorThing.addPropertyChangeListener(new VirtualThingPropertyChangeListener() {
@@ -80,7 +67,7 @@ public class SteamSensorClient extends ConnectedThingClient {
                     }
                 }
             });
-        }
+//        }
 
         try {
             // Start the client
