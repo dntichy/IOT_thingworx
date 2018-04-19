@@ -1,5 +1,9 @@
 
 
+import com.pi4j.component.temperature.TemperatureSensor;
+import com.pi4j.component.temperature.impl.TmpDS18B20DeviceType;
+import com.pi4j.io.w1.W1Device;
+import com.pi4j.io.w1.W1Master;
 import com.thingworx.communications.client.ConnectedThingClient;
 import com.thingworx.communications.client.things.VirtualThing;
 import com.thingworx.metadata.FieldDefinition;
@@ -9,6 +13,8 @@ import com.thingworx.metadata.collections.FieldDefinitionCollection;
 import com.thingworx.types.BaseTypes;
 import com.thingworx.types.constants.CommonPropertyNames;
 import org.joda.time.DateTime;
+
+import java.util.List;
 
 // Refer to the "Steam Sensor Example" section of the documentation
 // for a detailed explanation of this example's operation
@@ -28,10 +34,16 @@ public class SteamThing extends VirtualThing implements Runnable {
 
     private int counter = 0;
 
+    private W1Master master;
+    private List<W1Device> w1Devices;
+
 
     public SteamThing(String name, String description, String identifier,
                       ConnectedThingClient client) throws Exception {
         super(name, description, identifier, client);
+
+        master = new W1Master();
+        w1Devices = master.getDevices(TmpDS18B20DeviceType.FAMILY_CODE);
 
         // Data Shape definition that is used by the steam sensor fault event
         // The event only has one field, the message
@@ -71,9 +83,12 @@ public class SteamThing extends VirtualThing implements Runnable {
         ++counter;
 
         if ((counter % 1) == 0) {
+            for (W1Device device : w1Devices) {
+                super.setProperty("Temperature", ((TemperatureSensor) device).getTemperature());
+            }
             // Set the Temperature property value in the range of 400-440
-            double temperature = 400 + 5 * Math.random();
-            super.setProperty("Temperature", temperature);
+            /*double temperature = 400 + 5 * Math.random();
+            super.setProperty("Temperature", temperature);*/
 
         }
         if ((counter % 2) == 0) {
